@@ -114,6 +114,18 @@ normal_force = m * (g *np.cos(beta_in_radians)+centripal_acceleration)
 
 friction_force = np.abs((c * m * g * np.sin(beta_in_radians))/(1+c))
 
+velocity_x = velocity * np.cos(beta_in_radians)
+velocity_x_average = np.array([])
+
+time_from_start = 0
+time_array = np.array([time_from_start])
+
+for i in range(1,len(velocity_x)):
+   average = 0.5 * (velocity_x[i] + velocity_x[i-1])
+   velocity_x_average = np.append(velocity_x_average,average)
+   time_from_start += dx/average
+   time_array = np.append(time_array, time_from_start)
+
 
 def show_path():
    plt.plot(x,y,xfast,yfast,'*')
@@ -173,10 +185,28 @@ def show_friction_force():
    plt.grid()
    plt.show()
 
-show_path()
+def show_x_by_time():
+   plt.plot(time_array,x)
+   plt.title('Posisjon')
+   plt.xlabel('$t$ (s)',fontsize=20)
+   plt.ylabel('$x$ (m)',fontsize=20)
+   plt.grid()
+   plt.show()
+
+def show_v_by_time():
+   plt.plot(time_array,velocity)
+   plt.title('Fart')
+   plt.xlabel('$t$ (s)',fontsize=20)
+   plt.ylabel('$v$ (m/s)',fontsize=20)
+   plt.grid()
+   plt.show()
+
+#show_path()
 #show_velocity()
 #show_curviture()
 #show_centripal_acceleration()
 #show_beta()
 #show_normal_force()
 #show_friction_force()
+#show_x_byt_time()
+show_v_by_time()
