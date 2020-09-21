@@ -84,7 +84,7 @@ d2y = cs(x,2)
 
 #Plotting
 
-baneform = plt.figure('y(x)',figsize=(12,3))
+window = plt.figure('Plots',figsize=(12,3))
 
 
 #baneform.savefig("baneform.pdf", bbox_inches='tight')
@@ -100,6 +100,7 @@ baneform = plt.figure('y(x)',figsize=(12,3))
 
 g = 9.81
 c = 2/5
+m = 0.1
 
 curviture = d2y / (1 + dy**2)**(3/2)
 
@@ -107,9 +108,15 @@ velocity = np.sqrt((2*g*(y[0]-y))/(1+c))
 
 centripal_acceleration = velocity**2 * curviture
 
+beta_in_radians = np.arctan(dy)
+
+normal_force = m * (g *np.cos(beta_in_radians)+centripal_acceleration)
+
+friction_force = np.abs((c * m * g * np.sin(beta_in_radians))/(1+c))
+
 
 def show_path():
-   plt.plot(x,dy,xfast,yfast,'*')
+   plt.plot(x,y,xfast,yfast,'*')
    plt.title('Banens form')
    plt.xlabel('$x$ (m)',fontsize=20)
    plt.ylabel('$y(x)$ (m)',fontsize=20)
@@ -141,4 +148,35 @@ def show_centripal_acceleration():
    plt.grid()
    plt.show()
 
-show_centripal_acceleration()
+
+def show_beta():
+   plt.plot(x,np.rad2deg(beta_in_radians))
+   plt.title('Helningsvinkel')
+   plt.xlabel('$x$ (m)',fontsize=20)
+   plt.ylabel('$\u03B2(x)$ (grader)',fontsize=20)
+   plt.grid()
+   plt.show()
+   
+def show_normal_force():
+   plt.plot(x,normal_force)
+   plt.title('Normalkraft')
+   plt.xlabel('$x$ (m)',fontsize=20)
+   plt.ylabel('$N$ (N)',fontsize=20)
+   plt.grid()
+   plt.show()
+
+def show_friction_force():
+   plt.plot(x,friction_force)
+   plt.title('Normalkraft')
+   plt.xlabel('$x$ (m)',fontsize=20)
+   plt.ylabel('$f$ (N)',fontsize=20)
+   plt.grid()
+   plt.show()
+
+show_path()
+#show_velocity()
+#show_curviture()
+#show_centripal_acceleration()
+#show_beta()
+#show_normal_force()
+#show_friction_force()
