@@ -31,7 +31,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.interpolate import CubicSpline
-
 # Horisontal avstand mellom festepunktene er 200 mm
 h = 200
 xfast=np.asarray([0,h,2*h,3*h,4*h,5*h,6*h,7*h])
@@ -86,20 +85,60 @@ d2y = cs(x,2)
 #Plotting
 
 baneform = plt.figure('y(x)',figsize=(12,3))
-plt.plot(x,y,xfast,yfast,'*')
-plt.title('Banens form')
-plt.xlabel('$x$ (m)',fontsize=20)
-plt.ylabel('$y(x)$ (m)',fontsize=20)
-plt.ylim(0,0.350)
-plt.grid()
-plt.show()
+
+
 #baneform.savefig("baneform.pdf", bbox_inches='tight')
 #baneform.savefig("baneform.png", bbox_inches='tight')
 
 
-print('Antall forsÃ¸k',attempts)
-print('FestepunkthÃ¸yder (m)',yfast)
-print('Banens hÃ¸yeste punkt (m)',np.max(y))
+#print('Antall forsÃ¸k',attempts)
+#print('FestepunkthÃ¸yder (m)',yfast)
+#print('Banens hÃ¸yeste punkt (m)',np.max(y))
 
-print('NB: SKRIV NED festepunkthÃ¸ydene nÃ¥r du/dere er fornÃ¸yd med banen.')
-print('Eller kjÃ¸r programmet pÃ¥ nytt inntil en attraktiv baneform vises.')
+#print('NB: SKRIV NED festepunkthÃ¸ydene nÃ¥r du/dere er fornÃ¸yd med banen.')
+#print('Eller kjÃ¸r programmet pÃ¥ nytt inntil en attraktiv baneform vises.')
+
+g = 9.81
+c = 2/5
+
+curviture = d2y / (1 + dy**2)**(3/2)
+
+velocity = np.sqrt((2*g*(y[0]-y))/(1+c))
+
+centripal_acceleration = velocity**2 * curviture
+
+
+def show_path():
+   plt.plot(x,dy,xfast,yfast,'*')
+   plt.title('Banens form')
+   plt.xlabel('$x$ (m)',fontsize=20)
+   plt.ylabel('$y(x)$ (m)',fontsize=20)
+   plt.ylim(0,0.350)
+   plt.grid()
+   plt.show()
+
+def show_curviture():
+   plt.plot(x,curviture)
+   plt.title('Curviture')
+   plt.xlabel('$x$ (m)',fontsize=20)
+   plt.ylabel('$K(x)$ (1/m)',fontsize=20)
+   plt.grid()
+   plt.show()
+
+def show_velocity():
+   plt.plot(x,velocity)
+   plt.title('Velocity')
+   plt.xlabel('$x$ (m)',fontsize=20)
+   plt.ylabel('$v(x)$ (m/s)',fontsize=20)
+   plt.grid()
+   plt.show()
+
+def show_centripal_acceleration():
+   plt.plot(x,centripal_acceleration)
+   plt.title('Centripal acceleration')
+   plt.xlabel('$x$ (m)',fontsize=20)
+   plt.ylabel('$ca(x)$ (m/s^2)',fontsize=20)
+   plt.grid()
+   plt.show()
+
+show_centripal_acceleration()
