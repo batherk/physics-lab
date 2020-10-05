@@ -39,7 +39,9 @@ xfast=np.asarray([0,h,2*h,3*h,4*h,5*h,6*h,7*h])
 ymax = 300
 # yfast: tabell med 8 heltall mellom 50 og 300 (mm); representerer
 # hÃ¸yden i de 8 festepunktene
-yfast=np.asarray(np.random.randint(50, ymax, size=8))
+RANDOM_Y_VALUES = True
+#yfast = np.asarray(np.random.randint(50, ymax, size=8))
+yfast = np.array([294,233,232,164,212,169,172,221])
 # inttan: tabell med 7 verdier for (yfast[n+1]-yfast[n])/h (n=0..7); dvs
 # banens stigningstall beregnet med utgangspunkt i de 8 festepunktene.
 inttan = np.diff(yfast)/h
@@ -67,6 +69,8 @@ while (yfast[0] < yfast[1]*1.04 or
 # Omregning fra mm til m:
 xfast = xfast/1000
 yfast = yfast/1000
+
+
 
 #Programmet beregner deretter de 7 tredjegradspolynomene, et
 #for hvert intervall mellom to nabofestepunkter.
@@ -209,4 +213,30 @@ def show_v_by_time():
 #show_normal_force()
 #show_friction_force()
 #show_x_byt_time()
-show_v_by_time()
+#show_v_by_time()
+
+
+def get_data_values_from_file(experiment_number=1):
+   f = open(f"Raw data\experiment{experiment_number}.txt", "r")
+   ts, xs, ys, vs = np.array([]), np.array([]), np.array([]), np.array([])
+   for i, line in enumerate(f):
+      t, x, y, v = line.strip("\n").split("\t")
+      np.append(ts, float(t))
+      np.append(xs, float(x))
+      np.append(ys, float(y))
+      np.append(vs, float(v))
+   return ts, xs, ys, vs
+
+
+def show_velocity_from_data(experiment_number=1):
+
+   t, x, y, v = get_data_values_from_file(experiment_number=1)
+
+   plt.plot(x,y)
+   plt.title('Fart')
+   plt.xlabel('$t$ (s)',fontsize=20)
+   plt.ylabel('$v$ (m/s)',fontsize=20)
+   plt.grid()
+   plt.show()
+
+show_velocity_from_data()
