@@ -213,30 +213,5 @@ def show_v_by_time():
 #show_normal_force()
 #show_friction_force()
 #show_x_byt_time()
-#show_v_by_time()
+show_v_by_time()
 
-
-def get_data_values_from_file(experiment_number=1):
-   f = open(f"Raw data\experiment{experiment_number}.txt", "r")
-   ts, xs, ys, vs = np.array([]), np.array([]), np.array([]), np.array([])
-   for i, line in enumerate(f):
-      t, x, y, v = line.strip("\n").split("\t")
-      np.append(ts, float(t))
-      np.append(xs, float(x))
-      np.append(ys, float(y))
-      np.append(vs, float(v))
-   return ts, xs, ys, vs
-
-
-def show_velocity_from_data(experiment_number=1):
-
-   t, x, y, v = get_data_values_from_file(experiment_number=1)
-
-   plt.plot(x,y)
-   plt.title('Fart')
-   plt.xlabel('$t$ (s)',fontsize=20)
-   plt.ylabel('$v$ (m/s)',fontsize=20)
-   plt.grid()
-   plt.show()
-
-show_velocity_from_data()
