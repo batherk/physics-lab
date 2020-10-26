@@ -104,7 +104,7 @@ window = plt.figure('Plots',figsize=(12,3))
 
 g = 9.81
 c = 2/5
-m = 0.1
+m = 0.048
 
 curviture = d2y / (1 + dy**2)**(3/2)
 
@@ -142,7 +142,7 @@ def show_path():
 
 def show_curviture():
    plt.plot(x,curviture)
-   plt.title('Curviture')
+   plt.title('Krumning')
    plt.xlabel('$x$ (m)',fontsize=20)
    plt.ylabel('$K(x)$ (1/m)',fontsize=20)
    plt.grid()
@@ -150,7 +150,7 @@ def show_curviture():
 
 def show_velocity():
    plt.plot(x,velocity)
-   plt.title('Velocity')
+   plt.title('Fart')
    plt.xlabel('$x$ (m)',fontsize=20)
    plt.ylabel('$v(x)$ (m/s)',fontsize=20)
    plt.grid()
@@ -158,7 +158,7 @@ def show_velocity():
 
 def show_centripal_acceleration():
    plt.plot(x,centripal_acceleration)
-   plt.title('Centripal acceleration')
+   plt.title('Sentripetalakselerasjon')
    plt.xlabel('$x$ (m)',fontsize=20)
    plt.ylabel('$ca(x)$ (m/s^2)',fontsize=20)
    plt.grid()
@@ -183,7 +183,7 @@ def show_normal_force():
 
 def show_friction_force():
    plt.plot(x,friction_force)
-   plt.title('Normalkraft')
+   plt.title('Friksjonskraft')
    plt.xlabel('$x$ (m)',fontsize=20)
    plt.ylabel('$f$ (N)',fontsize=20)
    plt.grid()
@@ -212,6 +212,6 @@ def show_v_by_time():
 #show_beta()
 #show_normal_force()
 #show_friction_force()
-#show_x_byt_time()
-show_v_by_time()
+#show_x_by_time()
+#show_v_by_time()
 
